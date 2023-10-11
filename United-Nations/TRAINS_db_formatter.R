@@ -39,6 +39,8 @@ ntm_data_long <- ntm_data %>%
   mutate(HS_Code = str_trim(HS_Code))
 # Extract and clean the 'code' column
 ntm_data_long$code <- str_extract(ntm_data_long$HS_Code, "\\d+")
+# Remove replicated code in the same categories
+data_long <- data_long %>% group_by(`Measure description`,code) %>% distinct(code, .keep_all = TRUE)
 # Filter out rows with empty or non-numeric 'code'
 ntm_data_long <- ntm_data_long %>%
   filter(!is.na(code) & code != "")
