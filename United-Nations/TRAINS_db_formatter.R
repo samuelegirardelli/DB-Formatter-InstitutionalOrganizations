@@ -79,7 +79,7 @@ ntm_data_filtered <- ntm_data_all[!is.na(ntm_data_all$code), ]
 ## goods according to the list of tickers. We will use a 0 1 variable
 
 ntm_data_filtered$green <- lapply(ntm_data_filtered$matching_code, function(x) if (x %in% green_goods_tickers$tickers) 1 else 0)
-ntm_data_filtered <- ntm_data_filtered %>% select("Implementation date", "Country imposing NTM(s)", "NTM code", "matching_code", "green")
+ntm_data_filtered <- ntm_data_filtered %>% ungroup() %>% select("Implementation date", "Country imposing NTM(s)", "NTM code", "matching_code", "green")
 
 # Rename columns
 colnames(ntm_data_filtered) <- c("date", "country_imposer", "NTM_code", "HS_code", "green")
